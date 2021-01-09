@@ -1,6 +1,5 @@
 var http = require('https');
 var fs = require('fs');
-var del = require('del');
 var request = require('request');
 var NodeHelper = require("node_helper");
 
@@ -20,9 +19,8 @@ module.exports = NodeHelper.create({
                 if(notification === "BRING_MOON"){
 
                         var request = http.get(options, function (response) {
-                                var imagedata = '';
-                                del([payload.homeMM+'/modules/mmm-moon-phases/cache/*.gif']);
-                                var cache_file = '/modules/mmm-moon-phases/cache/moon-'+new Date().getTime()+'.gif';
+                                fs.unlinkSync([payload.homeMM+'/modules/mmm-moon-phases/cache/moon-current.gif']);
+                                var cache_file = '/modules/mmm-moon-phases/cache/moon-current.gif';
 
                                 var newimage = fs.createWriteStream(payload.homeMM+cache_file);
 
